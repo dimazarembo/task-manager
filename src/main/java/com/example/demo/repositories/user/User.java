@@ -1,4 +1,4 @@
-package com.example.demo.user;
+package com.example.demo.repositories.user;
 
 import jakarta.persistence.*;
 import lombok.*;

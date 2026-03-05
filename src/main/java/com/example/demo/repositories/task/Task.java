@@ -1,6 +1,6 @@
-package com.example.demo.task;
+package com.example.demo.repositories.task;
 
-import com.example.demo.user.User;
+import com.example.demo.repositories.user.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter

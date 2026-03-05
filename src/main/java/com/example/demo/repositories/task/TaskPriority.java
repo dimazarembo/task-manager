@@ -1,4 +1,4 @@
-package com.example.demo.task;
+package com.example.demo.repositories.task;
 
 public enum TaskPriority {
     LOW, MEDIUM, HIGH
