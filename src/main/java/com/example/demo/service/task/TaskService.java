@@ -3,7 +3,6 @@ package com.example.demo.service.task;
 import com.example.demo.dto.task.*;
 import com.example.demo.repositories.task.TaskEntity;
 import com.example.demo.repositories.task.TaskRepository;
-import com.example.demo.repositories.task.TaskStatus;
 import com.example.demo.repositories.user.UserEntity;
 import com.example.demo.repositories.user.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -87,16 +86,8 @@ public class TaskService {
     }
 
     public List<TaskResponse> searchAllTasksByFilter(TasksSearchFilter filter) {
-        TaskStatus status = null;
-        if (filter.status() != null && !filter.status().isBlank()) {
-            try {
-                status = TaskStatus.valueOf(filter.status().toUpperCase());
-            } catch (IllegalArgumentException ex) {
-                throw new IllegalStateException("Invalid status: " + filter.status());
-            }
-        }
         List<TaskEntity> allTasks = taskRepository.
-                searchAllByFilter(status, filter.assigneeId(), filter.authorId());
+                searchAllByFilter(filter.status(), filter.assigneeId(), filter.authorId());
 
         return allTasks.stream().map(taskMapper::toDomain).toList();
     }

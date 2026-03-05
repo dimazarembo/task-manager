@@ -4,12 +4,16 @@ import com.example.demo.dto.task.CreateTaskRequest;
 import com.example.demo.dto.task.TaskResponse;
 import com.example.demo.dto.task.TasksSearchFilter;
 import com.example.demo.dto.task.UpdateTaskRequest;
+import com.example.demo.repositories.task.TaskStatus;
 import com.example.demo.service.task.TaskService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,12 +21,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/tasks")
 @AllArgsConstructor
+@Validated
 public class TaskController {
 
     private final TaskService taskService;
 
     @PostMapping
-    public ResponseEntity<TaskResponse> createTask(@RequestBody CreateTaskRequest task, Authentication authentication) {
+    public ResponseEntity<TaskResponse> createTask(@Valid @RequestBody CreateTaskRequest task, Authentication authentication) {
 
         String username = authentication.getName();
         return ResponseEntity.status(HttpStatus.CREATED).body(taskService.createTask(task, username));
@@ -36,7 +41,7 @@ public class TaskController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<TaskResponse> updateTask(@PathVariable Long id, @RequestBody UpdateTaskRequest updateTaskRequest, Authentication authentication) {
+    public ResponseEntity<TaskResponse> updateTask(@PathVariable Long id, @Valid @RequestBody UpdateTaskRequest updateTaskRequest, Authentication authentication) {
         String username = authentication.getName();
         boolean isAdmin = authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"));
 
@@ -53,9 +58,9 @@ public class TaskController {
 
     @GetMapping
     public ResponseEntity<List<TaskResponse>> getAllTasksWithFilter(
-            @RequestParam(value = "status", required = false) String status,
-            @RequestParam(value = "assigneeId", required = false) Long assigneeId,
-            @RequestParam(value = "authorId", required = false) Long authorId
+            @RequestParam(value = "status", required = false) TaskStatus status,
+            @RequestParam(value = "assigneeId", required = false) @Positive Long assigneeId,
+            @RequestParam(value = "authorId", required = false) @Positive Long authorId
 
     ) {
         var filter = new TasksSearchFilter(status, assigneeId, authorId);
