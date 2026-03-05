@@ -95,6 +95,19 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(body);
     }
 
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<ErrorResponseDto> handleIllegalState(
+            IllegalStateException ex,
+            HttpServletRequest request
+    ) {
+        ErrorResponseDto body = new ErrorResponseDto(
+                Instant.now(),
+                "Bad Request",
+                ex.getMessage()
+        );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
+    }
+
     public record ErrorResponseDto(
             Instant timestamp,
             String error,

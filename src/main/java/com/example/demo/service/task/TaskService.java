@@ -1,11 +1,9 @@
 package com.example.demo.service.task;
 
-import com.example.demo.dto.task.CreateTaskRequest;
-import com.example.demo.dto.task.TaskMapper;
-import com.example.demo.dto.task.TaskResponse;
-import com.example.demo.dto.task.UpdateTaskRequest;
+import com.example.demo.dto.task.*;
 import com.example.demo.repositories.task.TaskEntity;
 import com.example.demo.repositories.task.TaskRepository;
+import com.example.demo.repositories.task.TaskStatus;
 import com.example.demo.repositories.user.UserEntity;
 import com.example.demo.repositories.user.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -14,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -86,5 +85,20 @@ public class TaskService {
         }
 
         return task;
+    }
+
+    public List<TaskResponse> searchAllTasksByFilter(TasksSearchFilter filter) {
+        TaskStatus status = null;
+        if (filter.status() != null && !filter.status().isBlank()) {
+            try {
+                status = TaskStatus.valueOf(filter.status().toUpperCase());
+            } catch (IllegalArgumentException ex) {
+                throw new IllegalStateException("Invalid status: " + filter.status());
+            }
+        }
+        List<TaskEntity> allTasks = taskRepository.
+                searchAllByFilter(status,  filter.assigneeId(), filter.authorId());
+
+        return allTasks.stream().map(taskMapper::toDomain).toList();
     }
 }
