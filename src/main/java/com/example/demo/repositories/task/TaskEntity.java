@@ -1,12 +1,11 @@
 package com.example.demo.repositories.task;
 
-import com.example.demo.repositories.user.User;
+import com.example.demo.repositories.user.UserEntity;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
 
@@ -14,7 +13,10 @@ import java.time.Instant;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Task {
+@Builder
+@AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
+public class TaskEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,11 +35,11 @@ public class Task {
 
     @ManyToOne(fetch = FetchType.LAZY,  optional = false)
     @JoinColumn(name = "author_id", nullable = false, foreignKey = @ForeignKey(name = "fk_tasks_author"))
-    private User author;
+    private UserEntity author;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "assignee_id", foreignKey = @ForeignKey(name = "fk_tasks_assignee"))
-    private User assignee;
+    private UserEntity assignee;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

@@ -1,9 +1,9 @@
 package com.example.demo.service.user;
 
-import com.example.demo.dto.user.UserDTO;
+import com.example.demo.dto.user.UserResponse;
 import com.example.demo.dto.user.UserMapper;
 import com.example.demo.repositories.user.Role;
-import com.example.demo.repositories.user.User;
+import com.example.demo.repositories.user.UserEntity;
 import com.example.demo.repositories.user.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -18,8 +18,8 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
 
-    public UserDTO findUserByUsername(String username) {
-        User user = userRepository.findByUsername(username)
+    public UserResponse findUserByUsername(String username) {
+        UserEntity user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
         return userMapper.toDto(user);
     }
@@ -30,16 +30,16 @@ public class UserService {
     }
 
     @Transactional
-    public UserDTO createUser(String username, String password, String email) {
+    public UserResponse createUser(String username, String password, String email) {
         if (isUserExists(username, email)) {
             throw new IllegalArgumentException("Username is already in use");
         }
-        User user = new User();
+        UserEntity user = new UserEntity();
         user.setUsername(username);
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(password));
         user.setRole(Role.USER);
-        User savedUser = userRepository.save(user);
+        UserEntity savedUser = userRepository.save(user);
         return userMapper.toDto(savedUser);
     }
 }

@@ -1,6 +1,9 @@
 package com.example.demo.controllers.auth;
 
-import com.example.demo.dto.user.UserDTO;
+import com.example.demo.dto.auth.JwtResponse;
+import com.example.demo.dto.auth.LoginRequest;
+import com.example.demo.dto.auth.RegistrationRequest;
+import com.example.demo.dto.user.UserResponse;
 import com.example.demo.service.auth.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +25,8 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserDTO> register(@Valid @RequestBody RegistrationRequest registrationRequest) {
-        UserDTO createdUser = authService.register(registrationRequest);
+    public ResponseEntity<UserResponse> register(@Valid @RequestBody RegistrationRequest registrationRequest) {
+        UserResponse createdUser = authService.register(registrationRequest);
         return ResponseEntity.status(201).body(createdUser);
     }
 }

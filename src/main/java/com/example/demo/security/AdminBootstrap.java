@@ -1,7 +1,7 @@
 package com.example.demo.security;
 
 import com.example.demo.repositories.user.Role;
-import com.example.demo.repositories.user.User;
+import com.example.demo.repositories.user.UserEntity;
 import com.example.demo.repositories.user.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +38,7 @@ public class AdminBootstrap implements ApplicationRunner {
     @Transactional
     public void run(ApplicationArguments args) throws Exception {
         if (!enabled) return;
-        User admin = User.builder().username(username).password(passwordEncoder.encode(password))
+        UserEntity admin = UserEntity.builder().username(username).password(passwordEncoder.encode(password))
                 .email(email).role(Role.ADMIN).build();
 
         userRepository.save(admin);

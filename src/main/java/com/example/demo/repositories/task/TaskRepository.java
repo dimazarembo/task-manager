@@ -2,5 +2,5 @@ package com.example.demo.repositories.task;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TaskRepository extends JpaRepository<Task, Long> {
+public interface TaskRepository extends JpaRepository<TaskEntity, Long> {
 }
