@@ -3,6 +3,8 @@ package com.example.demo.dto.task;
 import com.example.demo.repositories.task.TaskPriority;
 import com.example.demo.repositories.task.TaskStatus;
 
+import java.time.Instant;
+
 public record TaskResponse(
         Long id,
         String title,
@@ -11,5 +13,7 @@ public record TaskResponse(
         TaskPriority taskPriority,
         Long authorId,
         Long assigneeId,
-        java.time.Instant createdDate) {
+        Instant createdDate,
+        Instant updatedDate
+) {
 }

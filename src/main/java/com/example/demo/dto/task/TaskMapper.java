@@ -28,7 +28,8 @@ public class TaskMapper {
                 savedTask.getPriority(),
                 savedTask.getAuthor().getId(),
                 assigneeId,
-                savedTask.getCreatedDate()
+                savedTask.getCreatedDate(),
+                savedTask.getUpdatedAt()
         );
     }
 }
