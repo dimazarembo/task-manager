@@ -6,6 +6,7 @@ import com.example.demo.dto.task.TasksSearchFilter;
 import com.example.demo.dto.task.UpdateTaskRequest;
 import com.example.demo.repositories.task.TaskStatus;
 import com.example.demo.service.task.TaskService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,7 @@ import java.util.List;
 @RequestMapping("/api/tasks")
 @AllArgsConstructor
 @Validated
+@SecurityRequirement(name = "bearerAuth")
 public class TaskController {
 
     private final TaskService taskService;
