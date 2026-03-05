@@ -13,7 +13,6 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -97,7 +96,7 @@ public class TaskService {
             }
         }
         List<TaskEntity> allTasks = taskRepository.
-                searchAllByFilter(status,  filter.assigneeId(), filter.authorId());
+                searchAllByFilter(status, filter.assigneeId(), filter.authorId());
 
         return allTasks.stream().map(taskMapper::toDomain).toList();
     }

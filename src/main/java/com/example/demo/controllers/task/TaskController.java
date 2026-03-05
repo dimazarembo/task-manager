@@ -22,7 +22,7 @@ public class TaskController {
     private final TaskService taskService;
 
     @PostMapping
-    public ResponseEntity<TaskResponse> createTask (@RequestBody CreateTaskRequest task, Authentication authentication) {
+    public ResponseEntity<TaskResponse> createTask(@RequestBody CreateTaskRequest task, Authentication authentication) {
 
         String username = authentication.getName();
         return ResponseEntity.status(HttpStatus.CREATED).body(taskService.createTask(task, username));
@@ -36,7 +36,7 @@ public class TaskController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<TaskResponse> updateTask (@PathVariable Long id, @RequestBody UpdateTaskRequest updateTaskRequest, Authentication authentication){
+    public ResponseEntity<TaskResponse> updateTask(@PathVariable Long id, @RequestBody UpdateTaskRequest updateTaskRequest, Authentication authentication) {
         String username = authentication.getName();
         boolean isAdmin = authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"));
 
@@ -44,7 +44,7 @@ public class TaskController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTask(@PathVariable Long id, Authentication authentication){
+    public ResponseEntity<Void> deleteTask(@PathVariable Long id, Authentication authentication) {
         String username = authentication.getName();
         boolean isAdmin = authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"));
         taskService.deleteTask(id, username, isAdmin);
@@ -57,7 +57,7 @@ public class TaskController {
             @RequestParam(value = "assigneeId", required = false) Long assigneeId,
             @RequestParam(value = "authorId", required = false) Long authorId
 
-    ){
+    ) {
         var filter = new TasksSearchFilter(status, assigneeId, authorId);
         return ResponseEntity.ok(taskService.searchAllTasksByFilter(filter));
     }

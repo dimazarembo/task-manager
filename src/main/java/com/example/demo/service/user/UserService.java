@@ -1,7 +1,7 @@
 package com.example.demo.service.user;
 
-import com.example.demo.dto.user.UserResponse;
 import com.example.demo.dto.user.UserMapper;
+import com.example.demo.dto.user.UserResponse;
 import com.example.demo.repositories.user.Role;
 import com.example.demo.repositories.user.UserEntity;
 import com.example.demo.repositories.user.UserRepository;

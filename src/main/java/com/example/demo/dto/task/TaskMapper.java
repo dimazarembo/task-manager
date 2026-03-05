@@ -5,8 +5,6 @@ import com.example.demo.repositories.task.TaskStatus;
 import com.example.demo.repositories.user.UserEntity;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-
 @Component
 public class TaskMapper {
     public TaskEntity toEntity(CreateTaskRequest taskRequest, UserEntity author, UserEntity assignee) {
