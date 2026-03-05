@@ -1,3 +1,28 @@
 spring:
   application:
     name: test-task
+  datasource:
+    url: jdbc:h2:mem:tm;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+  h2:
+    console:
+      enabled: true
+
+app:
+  jwt:
+    secret: secret
+    ttl-hours: 24
+  bootstrap:
+    admin:
+      enabled: true
+      user: admin
+      password: password
+      email: admin@admin.com
