@@ -23,6 +23,6 @@ app:
   bootstrap:
     admin:
       enabled: true
-      user: admin
+      username: admin
       password: password
       email: admin@admin.com
