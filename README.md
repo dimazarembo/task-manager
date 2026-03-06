@@ -47,7 +47,7 @@ Spring Boot 4 REST service for task management with JWT authentication.
 - `priority` (`LOW`, `MEDIUM`, `HIGH`)
 - `author` (required)
 - `assignee` (nullable)
-- `createdDate` (auto)
+- `createdAt` (auto)
 - `updatedAt` (auto)
 
 ## Configuration
@@ -162,7 +162,7 @@ curl -X POST http://localhost:8080/api/tasks \
   -d '{
     "title": "Prepare report",
     "description": "Q4 report",
-    "taskPriority": "HIGH",
+    "priority": "HIGH",
     "assigneeId": 1
   }'
 ```
@@ -176,8 +176,8 @@ curl -X PUT http://localhost:8080/api/tasks/1 \
   -d '{
     "title": "Prepare report v2",
     "description": "Q4 report updated",
-    "taskStatus": "IN_PROGRESS",
-    "taskPriority": "MEDIUM",
+    "status": "IN_PROGRESS",
+    "priority": "MEDIUM",
     "assigneeId": 1
   }'
 ```

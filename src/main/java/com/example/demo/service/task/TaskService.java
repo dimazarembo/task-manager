@@ -23,7 +23,8 @@ public class TaskService {
     @Transactional
     public TaskResponse createTask(CreateTaskRequest taskRequest, String username) {
 
-        UserEntity author = userRepository.findByUsername(username).orElseThrow();
+        UserEntity author = userRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("User not found username:" + username));
 
         UserEntity assignee = null;
         if (taskRequest.assigneeId() != null) {
@@ -48,8 +49,8 @@ public class TaskService {
 
         taskEntity.setTitle(updateTaskRequest.title());
         taskEntity.setDescription(updateTaskRequest.description());
-        taskEntity.setStatus(updateTaskRequest.taskStatus());
-        taskEntity.setPriority(updateTaskRequest.taskPriority());
+        taskEntity.setStatus(updateTaskRequest.status());
+        taskEntity.setPriority(updateTaskRequest.priority());
         if (updateTaskRequest.assigneeId() != null) {
             taskEntity.setAssignee(userRepository.
                     findById(updateTaskRequest.assigneeId())

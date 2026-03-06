@@ -54,7 +54,7 @@ class TaskServiceTest {
                 .title(request.title())
                 .description(request.description())
                 .status(TaskStatus.TODO)
-                .priority(request.taskPriority())
+                .priority(request.priority())
                 .author(author)
                 .build();
         TaskEntity savedTask = TaskEntity.builder()
@@ -62,9 +62,9 @@ class TaskServiceTest {
                 .title(request.title())
                 .description(request.description())
                 .status(TaskStatus.TODO)
-                .priority(request.taskPriority())
+                .priority(request.priority())
                 .author(author)
-                .createdDate(Instant.now())
+                .createdAt(Instant.now())
                 .updatedAt(Instant.now())
                 .build();
         TaskResponse expected = new TaskResponse(
@@ -72,10 +72,10 @@ class TaskServiceTest {
                 request.title(),
                 request.description(),
                 TaskStatus.TODO,
-                request.taskPriority(),
+                request.priority(),
                 author.getId(),
                 null,
-                savedTask.getCreatedDate(),
+                savedTask.getCreatedAt(),
                 savedTask.getUpdatedAt()
         );
 

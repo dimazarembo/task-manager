@@ -43,7 +43,7 @@ public class TaskEntity {
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
-    private Instant createdDate;
+    private Instant createdAt;
 
     @LastModifiedDate
     @Column(nullable = false)

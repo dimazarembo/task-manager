@@ -49,7 +49,7 @@ public class GlobalExceptionHandler {
     ) {
         ErrorResponseDto body = new ErrorResponseDto(
                 Instant.now(),
-                "Task not found",
+                "Not Found",
                 ex.getMessage()
         );
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);

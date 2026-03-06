@@ -38,6 +38,9 @@ public class AdminBootstrap implements ApplicationRunner {
     @Transactional
     public void run(ApplicationArguments args) throws Exception {
         if (!enabled) return;
+        if (userRepository.findByUsername(username).isPresent() || userRepository.findByEmail(email).isPresent()) {
+            return;
+        }
         UserEntity admin = UserEntity.builder().username(username).password(passwordEncoder.encode(password))
                 .email(email).role(Role.ADMIN).build();
 

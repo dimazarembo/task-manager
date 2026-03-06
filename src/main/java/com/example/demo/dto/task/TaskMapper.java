@@ -12,7 +12,7 @@ public class TaskMapper {
         return TaskEntity.builder().title(taskRequest.title())
                 .description(taskRequest.description())
                 .status(TaskStatus.TODO)
-                .priority(taskRequest.taskPriority())
+                .priority(taskRequest.priority())
                 .author(author).assignee(assignee).build();
     }
 
@@ -26,7 +26,7 @@ public class TaskMapper {
                 savedTask.getPriority(),
                 savedTask.getAuthor().getId(),
                 assigneeId,
-                savedTask.getCreatedDate(),
+                savedTask.getCreatedAt(),
                 savedTask.getUpdatedAt()
         );
     }

@@ -11,8 +11,8 @@ public record CreateTaskRequest(
         @Size(max = 200, message = "title must be at most 200 characters")
         String title,
         String description,
-        @NotNull(message = "taskPriority is required")
-        TaskPriority taskPriority,
+        @NotNull(message = "priority is required")
+        TaskPriority priority,
         @Positive(message = "assigneeId must be positive")
         Long assigneeId
 ) {

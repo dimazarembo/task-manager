@@ -12,10 +12,10 @@ public record UpdateTaskRequest(
         @Size(max = 200, message = "title must be at most 200 characters")
         String title,
         String description,
-        @NotNull(message = "taskStatus is required")
-        TaskStatus taskStatus,
-        @NotNull(message = "taskPriority is required")
-        TaskPriority taskPriority,
+        @NotNull(message = "status is required")
+        TaskStatus status,
+        @NotNull(message = "priority is required")
+        TaskPriority priority,
         @Positive(message = "assigneeId must be positive")
         Long assigneeId
 ) {

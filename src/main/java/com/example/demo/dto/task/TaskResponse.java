@@ -9,11 +9,11 @@ public record TaskResponse(
         Long id,
         String title,
         String description,
-        TaskStatus taskStatus,
-        TaskPriority taskPriority,
+        TaskStatus status,
+        TaskPriority priority,
         Long authorId,
         Long assigneeId,
-        Instant createdDate,
-        Instant updatedDate
+        Instant createdAt,
+        Instant updatedAt
 ) {
 }
