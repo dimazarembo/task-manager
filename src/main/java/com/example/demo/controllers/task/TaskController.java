@@ -6,6 +6,9 @@ import com.example.demo.dto.task.TasksSearchFilter;
 import com.example.demo.dto.task.UpdateTaskRequest;
 import com.example.demo.repositories.task.TaskStatus;
 import com.example.demo.service.task.TaskService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
@@ -31,6 +34,24 @@ public class TaskController {
     private final TaskService taskService;
 
     @PostMapping
+    @Operation(summary = "Create task")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            required = true,
+            content = @Content(
+                    mediaType = "application/json",
+                    examples = @ExampleObject(
+                            name = "Create task without assignee",
+                            value = """
+                                    {
+                                      "title": "Prepare report",
+                                      "description": "Q4 report",
+                                      "priority": "LOW",
+                                      "assigneeId": null
+                                    }
+                                    """
+                    )
+            )
+    )
     public ResponseEntity<TaskResponse> createTask(@Valid @RequestBody CreateTaskRequest task, Authentication authentication) {
 
         String username = authentication.getName();
