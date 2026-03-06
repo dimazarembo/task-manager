@@ -32,7 +32,7 @@ public class UserService {
     @Transactional
     public UserResponse createUser(String username, String password, String email) {
         if (isUserExists(username, email)) {
-            throw new IllegalArgumentException("Username is already in use");
+            throw new IllegalArgumentException("Username or email is already in use");
         }
         UserEntity user = new UserEntity();
         user.setUsername(username);

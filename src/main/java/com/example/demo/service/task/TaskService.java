@@ -61,7 +61,7 @@ public class TaskService {
             taskEntity.setAssignee(null);
         }
 
-        var updatedTask = taskRepository.save(taskEntity);
+        var updatedTask = taskRepository.saveAndFlush(taskEntity);
 
         return taskMapper.toDomain(updatedTask);
     }
