@@ -66,6 +66,25 @@ public class TaskController {
 
 
     @PutMapping("/{id}")
+    @Operation(summary = "Update task")
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            required = true,
+            content = @Content(
+                    mediaType = "application/json",
+                    examples = @ExampleObject(
+                            name = "Update task without assignee",
+                            value = """
+                                    {
+                                      "title": "Prepare report v2",
+                                      "description": "Q4 report updated",
+                                      "status": "IN_PROGRESS",
+                                      "priority": "MEDIUM",
+                                      "assigneeId": null
+                                    }
+                                    """
+                    )
+            )
+    )
     public ResponseEntity<TaskResponse> updateTask(@PathVariable Long id, @Valid @RequestBody UpdateTaskRequest updateTaskRequest, Authentication authentication) {
         String username = authentication.getName();
         boolean isAdmin = authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"));
